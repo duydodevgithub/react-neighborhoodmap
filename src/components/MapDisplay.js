@@ -24,7 +24,7 @@ class MapDisplay extends Component {
           <AnyReactComponent
             lat={59.955413}
             lng={30.337844}
-            text={'Kreyser Avrora'}
+            text={'DUY DO'}
           />
         </GoogleMapReact>
       </div>
