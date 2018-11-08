@@ -47,7 +47,6 @@ class MapDisplay extends Component {
                           <h1>Hello</h1>
                         </div>
                   </InfoWindow>  
-
                 </Map>
 
 
