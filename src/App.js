@@ -31,7 +31,7 @@ class App extends Component {
         let url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/" + element.businessId;
         axios.get(url, config)
         .then(response => {
-            // console.log(response.data);
+            console.log(response.data);
             dataTemp.push({
                 category:response.data.categories[0].alias,
                 id: response.data.id,
@@ -66,6 +66,7 @@ class App extends Component {
   clickItem = (id) => {
     // console.log(id);
     this.setState({"selectedID": id})
+    this.forceUpdate();
   }
 
   updateQuery = (event) => {

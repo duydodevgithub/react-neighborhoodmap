@@ -48,6 +48,7 @@ class MapDisplay extends Component {
           }))
         }
     };
+
   
 
     render(){
@@ -77,6 +78,7 @@ class MapDisplay extends Component {
                   })}
 
                   <InfoWindow
+                      onClose={this.onMapClicked}
                       marker={this.state.activeMarker}
                       visible={this.state.showingInfoWindow}>
                         <div>
