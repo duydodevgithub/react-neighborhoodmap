@@ -16,6 +16,7 @@ const config = {
 
 class App extends Component {
   state = {
+    dataStatus: true,
     executed: true,
     data: [],
     filterData: [],
@@ -47,8 +48,13 @@ class App extends Component {
             // console.log(dataTemp);
             this.setState({
               data: dataTemp,
-              filterData: dataTemp
+              filterData: dataTemp,
+              dataStatus: true
             })
+        })
+        .catch((error) => {
+          console.log(error.response);
+          this.setState({dataStatus: false})
         });
     });
   }
@@ -76,10 +82,15 @@ class App extends Component {
     });
   }
 
+  reload = () => {
+    document.location.reload(true);
+  }
+
   render() {
     return (
       <div className="container-fluid">
-        <div className="row">
+        {this.state.dataStatus ? (
+          <div className="row">
           <div className="col-lg-2">
             <ResponsiveDrawer updateQuery={this.updateQuery} cardClick={this.clickItem} locations={this.state.filterData} />
           </div>
@@ -93,6 +104,12 @@ class App extends Component {
             />
           </div>
         </div>
+        ) : (
+          <div className="row">
+            <h1>Server response fail. Please click to reload the page</h1>
+            <button onClick={this.reload}>Reload</button>
+          </div>
+        )}
       </div>
     );
   }

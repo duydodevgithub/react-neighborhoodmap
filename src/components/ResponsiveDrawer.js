@@ -49,14 +49,14 @@ class ResponsiveDrawer extends React.Component {
 
     const drawer = (
       <div>
-        <input placeholder="Search By Country: Vietnamese, Italia or Mexican" id="inputText" type="text"
+        <input tabIndex="1" placeholder="Search By Country: Vietnamese, Italia or Mexican" id="inputText" type="text"
               onChange={(event) => this.props.updateQuery(event)}
         />
         <h2 className="text-center page-header">Restaurant List</h2>
         <Divider />
-        {this.props.locations.map((element) => {
+        {this.props.locations.map((element, index) => {
           return (
-                  <div key={element.id} coords={element.coords} className="thumbnail card">
+                  <div tabIndex={index + 2} rold="aria-labelledby" key={element.id} coords={element.coords} className="thumbnail card">
                       <img className="card-img-top" alt={element.name} src={element.img} onClick={e => this.props.cardClick(element.alias)}/>
                       <div id="restaurantDetail" className="caption card-body">
                         <h5 className="restaurantDetail_h5">{element.name}</h5>

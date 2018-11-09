@@ -9,6 +9,11 @@ Neighborhood Restaurant Map
 - Filtering restaurant by choosing country.
 - Reload button to refresh the API
 
+## Running app in production build
+- npm run build
+- serve -s build
+- Visit localhost:5000
+
 ##Technology used
 * HTML
 * CSS
