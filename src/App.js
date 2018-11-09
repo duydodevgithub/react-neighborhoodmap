@@ -53,13 +53,14 @@ class App extends Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col-lg-2">
-            <ResponsiveDrawer />
+          <div className="col-lg-3">
+            <ResponsiveDrawer locations={this.state.data} />
           </div>
-          <div id="mapContainer" className="col-lg-10">
+          <div id="mapContainer" className="col-lg-9">
             <MapDisplay 
               zoom={this.state.zoom} 
               myDefaultCenter={this.state.center} 
+              locations={this.state.data}
             />
           </div>
         </div>

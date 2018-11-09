@@ -7,10 +7,12 @@ class MapDisplay extends Component {
     state = {
         showingInfoWindow: false,
         activeMarker: {},
+        selectedPlace: {}
       }
 
     onMarkerClick = (props, marker, e) =>
       this.setState({
+        selectedPlace: props,
         activeMarker: marker,
         showingInfoWindow: true
     });
@@ -33,18 +35,23 @@ class MapDisplay extends Component {
                     zoom = {this.props.zoom}
                     onClick={this.onMapClicked}
                 >
-                  <Marker
-                    title={'The marker`s title will appear as a tooltip.'}
-                    name={'SOMA'}
-                    position={{lat: 29.99914, lng: -95.545858}} 
-                    onClick={this.onMarkerClick}
-                  />
+                  {this.props.locations.map((element) => {
+                    return(
+                      <Marker
+                      key={element.id}
+                      title={element.alias}
+                      name={element.name}
+                      position={element.coords} 
+                      onClick={this.onMarkerClick}
+                    />
+                    )
+                  })}
 
                   <InfoWindow
                       marker={this.state.activeMarker}
                       visible={this.state.showingInfoWindow}>
                         <div>
-                          <h1>Hello</h1>
+                          <h1>{this.state.selectedPlace.name}</h1>
                         </div>
                   </InfoWindow>  
                 </Map>

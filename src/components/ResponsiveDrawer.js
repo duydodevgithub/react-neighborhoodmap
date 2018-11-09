@@ -2,16 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
 import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 
-const drawerWidth = 240;
+
+const drawerWidth = 360;
 
 const styles = theme => ({
   root: {
@@ -24,7 +19,7 @@ const styles = theme => ({
     },
   },
   menuButton: {
-    marginRight: 20,
+    marginRight: 10,
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
@@ -48,6 +43,10 @@ class ResponsiveDrawer extends React.Component {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
+  cardClick = (event) => {
+    console.log("hehe");
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -56,14 +55,17 @@ class ResponsiveDrawer extends React.Component {
         <input placeholder="Search By Country" id="inputText" type="text"/>
         <h2 className="text-center">Restaurant List</h2>
         <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+        {this.props.locations.map((element) => {
+          return (
+                  <div key={element.id} coords={element.coords} className="thumbnail card">
+                      <img src={element.img} onClick={this.cardClick}/>
+                      <div className="caption">
+                        <p>{element.name}</p>
+                      </div>
+                      <a href={element.url} target="blank">Visit website</a>
+                </div>
+                )
+        })}
       </div>
     );
 

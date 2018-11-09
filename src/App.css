@@ -13,3 +13,12 @@ body {
 #mapContainer {
   height: 100vh;
 }
+
+.card:hover {
+  background-color: lightblue;
+}
+
+
+#drawerHeader {
+  position: absolute;
+}
