@@ -52,19 +52,19 @@ class ResponsiveDrawer extends React.Component {
         <input placeholder="Search By Country: Vietnamese, Italia or Mexican" id="inputText" type="text"
               onChange={(event) => this.props.updateQuery(event)}
         />
-        <h2 className="text-center">Restaurant List</h2>
+        <h2 className="text-center page-header">Restaurant List</h2>
         <Divider />
         {this.props.locations.map((element) => {
           return (
                   <div key={element.id} coords={element.coords} className="thumbnail card">
-                      <img alt={element.name} src={element.img} onClick={e => this.props.cardClick(element.alias)}/>
-                      <div className="caption">
-                        <p>Category: {element.category}</p>
-                        <p>{element.name}</p>
-                        <p>{element.address}</p>
-                        <p>Rating: {element.rating}</p>
+                      <img className="card-img-top" alt={element.name} src={element.img} onClick={e => this.props.cardClick(element.alias)}/>
+                      <div id="restaurantDetail" className="caption card-body">
+                        <h5 className="restaurantDetail_h5">{element.name}</h5>
+                        <p className="restaurantDetail_p">Category: {element.category}</p>
+                        <p className="restaurantDetail_p">Adress: {element.address}</p>
+                        <p className="restaurantDetail_p">Rating: {element.rating}</p>
+                        <a href={element.url} target="blank">Visit website</a>
                       </div>
-                      <a href={element.url} target="blank">Visit website</a>
                 </div>
                 )
         })}

@@ -23,3 +23,12 @@ body {
 #drawerHeader {
   position: absolute;
 }
+
+.restaurantDetail_p {
+  color: brown
+}
+
+.restaurantDetail_h5 {
+  font-size: 1.5em;
+  color: black
+}

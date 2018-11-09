@@ -33,11 +33,12 @@ class MapDisplay extends Component {
 
     componentWillReceiveProps(props){
       // console.log(props);
+      if(this.props.executed) {
       this.state.markerObjects.forEach(item => {
         if(item.title === props.selectedId) {
           this.onMarkerClick({"name": item.name,"address": item.address},item)
         }
-      })
+      })}
     }
 
     onMarkerMounted = element => {
