@@ -59,7 +59,10 @@ class ResponsiveDrawer extends React.Component {
                   <div key={element.id} coords={element.coords} className="thumbnail card">
                       <img alt={element.name} src={element.img} onClick={e => this.props.cardClick(element.alias)}/>
                       <div className="caption">
+                        <p>Category: {element.category}</p>
                         <p>{element.name}</p>
+                        <p>{element.address}</p>
+                        <p>Rating: {element.rating}</p>
                       </div>
                       <a href={element.url} target="blank">Visit website</a>
                 </div>

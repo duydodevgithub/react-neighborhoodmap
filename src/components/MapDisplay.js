@@ -35,7 +35,7 @@ class MapDisplay extends Component {
       // console.log(props);
       this.state.markerObjects.forEach(item => {
         if(item.title === props.selectedId) {
-          this.onMarkerClick({"name": item.name},item)
+          this.onMarkerClick({"name": item.name,"address": item.address},item)
         }
       })
     }
@@ -67,6 +67,7 @@ class MapDisplay extends Component {
                       ref={this.onMarkerMounted}
                       key={element.id}
                       title={element.alias}
+                      address={element.address}
                       name={element.name}
                       position={element.coords} 
                       onClick={this.onMarkerClick}
@@ -78,7 +79,8 @@ class MapDisplay extends Component {
                       marker={this.state.activeMarker}
                       visible={this.state.showingInfoWindow}>
                         <div>
-                          <h1>{this.state.selectedPlace.name}</h1>
+                          <p>{this.state.selectedPlace.name}</p>
+                          <p>{this.state.selectedPlace.address}</p>
                         </div>
                   </InfoWindow>  
                 </Map>

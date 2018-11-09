@@ -19,7 +19,7 @@ class App extends Component {
     executed: true,
     data: [],
     filterData: [],
-    center: {'lat': 29.99914, 'lng': -95.545858},
+    center: {'lat': 29.99914, 'lng': -95.595858},
     zoom: 13,
     selectedId: ""
   }
