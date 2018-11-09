@@ -5,6 +5,7 @@ import {Map, GoogleApiWrapper, Marker, InfoWindow} from "google-maps-react";
 class MapDisplay extends Component {
     
     state = {
+        markerClicked: false,
         markerObjects: [],
         markerProps: [],
         showingInfoWindow: false,
@@ -17,14 +18,27 @@ class MapDisplay extends Component {
       this.setState({
         selectedPlace: props,
         activeMarker: marker,
-        showingInfoWindow: true
-    })};
+        showingInfoWindow: true,
+        markerClicked: true
+      })
+      if(this.state.markerClicked) {this.markerAnimate(marker)}
+      else {marker.setAnimation(null)}
+      ;      
+  };
+
+    markerAnimate = (marker) => {
+      marker.setAnimation(this.props.google.maps.Animation.BOUNCE)
+    }
 
     onMapClicked = (props) => {
         if (this.state.showingInfoWindow) {
-        this.setState({
+        this.setState((prev) =>{
+          prev.activeMarker.setAnimation(null);
+          return({
             showingInfoWindow: false,
-            activeMarker: null
+            activeMarker: null,
+            markerClicked: false
+          })   
         })
         }
     };
