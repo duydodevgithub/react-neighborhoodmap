@@ -6,6 +6,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
 
 
+
 const drawerWidth = 360;
 
 const styles = theme => ({
@@ -16,12 +17,6 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
       flexShrink: 0,
-    },
-  },
-  menuButton: {
-    marginRight: 10,
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
     },
   },
   toolbar: theme.mixins.toolbar,
@@ -57,7 +52,7 @@ class ResponsiveDrawer extends React.Component {
         {this.props.locations.map((element, index) => {
           return (
                   <div tabIndex={index + 2} rold="aria-labelledby" key={element.id} coords={element.coords} className="thumbnail card">
-                      <img className="card-img-top" alt={element.name} src={element.img} onClick={e => this.props.cardClick(element.alias)}/>
+                      <a href="#mapContainer"><img className="card-img-top" alt={element.name} src={element.img} onClick={e => this.props.cardClick(element.alias)}/></a>
                       <div id="restaurantDetail" className="caption card-body">
                         <h5 className="restaurantDetail_h5">{element.name}</h5>
                         <p className="restaurantDetail_p">Category: {element.category}</p>
@@ -68,25 +63,27 @@ class ResponsiveDrawer extends React.Component {
                 </div>
                 )
         })}
+
+        
       </div>
     );
 
     return (
       <div className={classes.root}>
-        <nav className={classes.drawer}>
-          {/* The implementation can be swap with js to avoid SEO duplication of links. */}
-          <Hidden xsDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              variant="permanent"
-              open
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-        </nav>
+        <Hidden smDown implementation="css">
+          <Drawer
+            variant="permanent"
+            open
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <main className={classes.content}>
+            {drawer}
+        </main>
       </div>
     );
   }

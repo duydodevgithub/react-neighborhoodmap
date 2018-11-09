@@ -31,7 +31,7 @@ class App extends Component {
         let url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/" + element.businessId;
         axios.get(url, config)
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             dataTemp.push({
                 category:response.data.categories[0].alias,
                 id: response.data.id,
@@ -92,10 +92,10 @@ class App extends Component {
       <div className="container-fluid">
         {this.state.dataStatus ? (
           <div className="row">
-          <div className="col-lg-2">
+          <div id="drawerContainer" className="col-lg-2">
             <ResponsiveDrawer updateQuery={this.updateQuery} cardClick={this.clickItem} locations={this.state.filterData} />
           </div>
-          <div id="mapContainer" className="col-lg-10">
+          <div id="mapContainer" className="col-lg-9">
             <MapDisplay 
               executed={this.state.executed}
               zoom={this.state.zoom} 
