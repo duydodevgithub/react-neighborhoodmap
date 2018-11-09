@@ -43,22 +43,21 @@ class ResponsiveDrawer extends React.Component {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
-  cardClick = (event) => {
-    console.log("hehe");
-  }
 
   render() {
     const { classes } = this.props;
 
     const drawer = (
       <div>
-        <input placeholder="Search By Country" id="inputText" type="text"/>
+        <input placeholder="Search By Country: Vietnamese, Italia or Mexican" id="inputText" type="text"
+              onChange={(event) => this.props.updateQuery(event)}
+        />
         <h2 className="text-center">Restaurant List</h2>
         <Divider />
         {this.props.locations.map((element) => {
           return (
                   <div key={element.id} coords={element.coords} className="thumbnail card">
-                      <img src={element.img} onClick={this.cardClick}/>
+                      <img alt={element.name} src={element.img} onClick={e => this.props.cardClick(element.alias)}/>
                       <div className="caption">
                         <p>{element.name}</p>
                       </div>

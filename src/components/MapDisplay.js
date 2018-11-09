@@ -5,17 +5,20 @@ import {Map, GoogleApiWrapper, Marker, InfoWindow} from "google-maps-react";
 class MapDisplay extends Component {
     
     state = {
+        markerObjects: [],
+        markerProps: [],
         showingInfoWindow: false,
         activeMarker: {},
         selectedPlace: {}
       }
 
-    onMarkerClick = (props, marker, e) =>
+    onMarkerClick = (props, marker, e) => {
+      // console.log(props)
       this.setState({
         selectedPlace: props,
         activeMarker: marker,
         showingInfoWindow: true
-    });
+    })};
 
     onMapClicked = (props) => {
         if (this.state.showingInfoWindow) {
@@ -25,10 +28,33 @@ class MapDisplay extends Component {
         })
         }
     };
+
+    
+
+    componentWillReceiveProps(props){
+      // console.log(props);
+      this.state.markerObjects.forEach(item => {
+        if(item.title === props.selectedId) {
+          this.onMarkerClick({"name": item.name},item)
+        }
+      })
+    }
+
+    onMarkerMounted = element => {
+        if(this.props.executed) {
+          this.setState(prevState => ({
+            markerObjects: [...prevState.markerObjects, element.marker]
+          }))
+        }
+    };
+  
+
     render(){
         return(
             <div>
                 <Map 
+                    role="application"
+                    aria-label="map"
                     id="map"
                     google = {this.props.google}
                     initialCenter={this.props.myDefaultCenter}
@@ -38,6 +64,7 @@ class MapDisplay extends Component {
                   {this.props.locations.map((element) => {
                     return(
                       <Marker
+                      ref={this.onMarkerMounted}
                       key={element.id}
                       title={element.alias}
                       name={element.name}

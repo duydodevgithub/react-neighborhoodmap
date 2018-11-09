@@ -6,6 +6,7 @@ import locations from "./data/locations.json";
 import axios from 'axios';
 
 
+
 const config = {
   headers: {'Authorization': 'Bearer pi67sORoz9nhDUAbIeDVeotZyuh20OSY5c9Z-i9EuEfr3mXGD8TgsOrI8i9srOX77t6vjqknwhntUf-37yx9HpW3YqlTaH4uiUhbtDQOLt7Q61Mv0SeSk7lI3oHgW3Yx'},
   params: {
@@ -15,14 +16,17 @@ const config = {
 
 class App extends Component {
   state = {
+    executed: true,
     data: [],
+    filterData: [],
     center: {'lat': 29.99914, 'lng': -95.545858},
-    zoom: 13
+    zoom: 13,
+    selectedId: ""
   }
 
-  componentWillMount() {
-        let dataTemp = [];
-        locations.forEach(element => {
+  fetchAPI = (json) => {
+    let dataTemp = [];
+        json.forEach(element => {
         let url = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/" + element.businessId;
         axios.get(url, config)
         .then(response => {
@@ -40,27 +44,52 @@ class App extends Component {
                 url: response.data.url,
                 phone: response.data.display_phone
             })
-            console.log(dataTemp);
+            // console.log(dataTemp);
             this.setState({
-              data: dataTemp
+              data: dataTemp,
+              filterData: dataTemp
             })
         });
     });
-}
+  }
 
+  componentWillMount() {
+        this.fetchAPI(locations);
+  }
+
+  clickItem = (id) => {
+    // console.log(id);
+    this.setState({"selectedID": id})
+  }
+
+  updateQuery = (event) => {
+    var updatedList = this.state.data;
+    // console.log(updatedList)
+    updatedList = updatedList.filter(function(item){
+      return item.category.toLowerCase().search(
+        event.target.value.toLowerCase()) !== -1;
+    });
+    // console.log(updatedList);
+    this.setState({
+      filterData: updatedList,
+      executed: false
+    });
+  }
 
   render() {
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col-lg-3">
-            <ResponsiveDrawer locations={this.state.data} />
+          <div className="col-lg-2">
+            <ResponsiveDrawer updateQuery={this.updateQuery} cardClick={this.clickItem} locations={this.state.filterData} />
           </div>
-          <div id="mapContainer" className="col-lg-9">
+          <div id="mapContainer" className="col-lg-10">
             <MapDisplay 
+              executed={this.state.executed}
               zoom={this.state.zoom} 
               myDefaultCenter={this.state.center} 
-              locations={this.state.data}
+              locations={this.state.filterData}
+              selectedId={this.state.selectedID}
             />
           </div>
         </div>
